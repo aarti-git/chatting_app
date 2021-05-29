@@ -10,6 +10,12 @@
     </div>
 </template>
 
+
+<!--<style>
+  @import './assets/cas/var.css';
+</style> -->
+
+
 <style lang="scss">
 
 // @font-face{
@@ -28,6 +34,7 @@ main{
   max-width: 1536px;
   margin: 0 auto;
   display: block;
+  background-color: var(--color1);
 }
 #nav {
   padding: 30px;

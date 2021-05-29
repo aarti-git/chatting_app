@@ -25,13 +25,13 @@
         display: flex;
         align-items: center;
         padding: 12px 30px;
-        border-bottom: 1px solid color('light-grey');
+        border-bottom: 1px solid var(--lightGrey);
     }
 
 	.chat-item__option {
 		.chat-item__list-wrapper:hover & {
 			opacity: 1;
-			color: color('app-main');
+			color: var(--color3);
 		}
 	}
 
@@ -56,21 +56,23 @@
         min-width: 0;
     }
     .chat-item__name{
-        font-size: 18px;
+        font-size: 16px;
         font-weight:500;
         margin-bottom: 5px;
+        color: var(--color2);
     }
     .chat-item__last-message{
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         font-size: 13px;
-        color: color('grey');
+        color: var(--grey);
     }
     .chat-item__time{
         display: block;
         font-size: 11px;
         min-width: 50px;
+        color: var(--color2);
     }
     .chat-item__option{
         opacity: 0;
@@ -78,6 +80,7 @@
 	.chat-item__svg-icons{
 		width: 20px;
 		height: 20px;
+        cursor: pointer;
 	}
 
 </style>

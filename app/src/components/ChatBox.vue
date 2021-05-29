@@ -8,36 +8,39 @@
                     <i class="chat-box__active-time">5 minutes ago</i>
                 </div>
                 <div class="chat-box__media-options">
-                    <div class="chat-box__icon-parent">
-                        <svg class="chat-box__icons chat-box__call-icon" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="phone-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+					<IconButton>
+						<svg class="chat-box__call-icon" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="phone-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path fill="currentColor" d="M493.09 351.3L384.7 304.8a31.36 31.36 0 0 0-36.5 8.9l-44.1 53.9A350 350 0 0 1 144.5 208l53.9-44.1a31.35 31.35 0 0 0 8.9-36.49l-46.5-108.5A31.33 31.33 0 0 0 125 .81L24.2 24.11A31.05 31.05 0 0 0 0 54.51C0 307.8 205.3 512 457.49 512A31.23 31.23 0 0 0 488 487.7L511.19 387a31.21 31.21 0 0 0-18.1-35.7zM456.89 480C222.4 479.7 32.3 289.7 32.1 55.21l99.6-23 46 107.39-72.8 59.5C153.3 302.3 209.4 358.6 313 407.2l59.5-72.8 107.39 46z"></path>
                         </svg>
-                    </div>
-                    <div class="chat-box__icon-parent">
-                        <svg class="chat-box__icons chat-box__call-video" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="video" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+					</IconButton>
+					<IconButton>
+                        <svg class="chat-box__call-video" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="video" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                             <path fill="currentColor" d="M543.9 96c-6.2 0-12.5 1.8-18.2 5.7L416 171.6v-59.8c0-26.4-23.2-47.8-51.8-47.8H51.8C23.2 64 0 85.4 0 111.8v288.4C0 426.6 23.2 448 51.8 448h312.4c28.6 0 51.8-21.4 51.8-47.8v-59.8l109.6 69.9c5.7 4 12.1 5.7 18.2 5.7 16.6 0 32.1-13 32.1-31.5v-257c.1-18.5-15.4-31.5-32-31.5zM384 400.2c0 8.6-9.1 15.8-19.8 15.8H51.8c-10.7 0-19.8-7.2-19.8-15.8V111.8c0-8.6 9.1-15.8 19.8-15.8h312.4c10.7 0 19.8 7.2 19.8 15.8v288.4zm160-15.7l-1.2-1.3L416 302.4v-92.9L544 128v256.5z"></path>
                         </svg>
-                    </div>
-                    <div class="chat-box__icon-parent">
+                   	</IconButton>
+					<IconButton>
+                    <div @click="toggleOption">
                         <svg class="chat-box__icons" aria-hidden="true" focusable="false" data-prefix="far" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path fill="currentColor" d="M304 256c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48 48 21.5 48 48zm120-48c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48zm-336 0c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z"></path>
                         </svg>
                     </div>
-                    <div class="chat-box__dopdown-btn">
+					</IconButton>
+                    <div v-if="showOption" class="chat-box__dopdown-btn">
                         <ul class="chat-box__dopdown-list">
-                            <li class="chat-box__list-item">Profile</li>
-                            <li class="chat-box__list-item">Add to archive</li>
-                            <li class="chat-box__list-item">Delet</li>
-                            <li class="chat-box__list-item">Block</li>
+                            <li 
+								class="chat-box__list-item"
+								v-for="option in moreOptions"
+								:key="option"
+							>{{ option }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <!-- text area -->
-        <!-- <div class="chat-box__textarea"> -->
-            <div class="chat-box__message-parent">
-                <div class="chat-box__message-item">
+        <div class="chat-box__message-parent">
+            <div class="chat-box__outside-message">
+                <div class="chat__box-msg-wrapper">
                     <div class="chat-box__user">
                         <img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
                         <div>
@@ -45,67 +48,70 @@
                             <i class="chat-box__active-time">10.20 AM</i>
                         </div>
                     </div>
-                    <div class="chat-box__message">how are you doing?</div>
-                </div>
-                <div class="chat-box__message-right">
-                    <div class="chat-box__message-item">
-                        <div class="chat-box__user">
-                            <img class="chat-item__profile-img" src="../assets/image/aarti.jpg">
-                            <div>
-                                <p class="chat-box__user-name"> Townsend Seary</p>
-                                <i class="chat-box__active-time">10.20 AM</i>
-                            </div>
-                        </div>
-                        <div class="chat-box__message chat-box__messege-by-me">i am fine. what about you?</div>
-                    </div>
-                </div>
-                <div class="chat-box__message-item">
-                    <div class="chat-box__user">
-                        <img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
-                        <div>
-                            <p class="chat-box__user-name"> Townsend Seary</p>
-                            <i class="chat-box__active-time">10.20 AM</i>
-                        </div>
-                    </div>
-                    <div class="chat-box__message">what are u doing tody ? any plance ?</div>
-                </div>
-                <div class="chat-box__message-right">
-                    <div class="chat-box__message-item">
-                        <div class="chat-box__user">
-                            <img class="chat-item__profile-img" src="../assets/image/aarti.jpg">
-                            <div>
-                                <p class="chat-box__user-name"> Townsend Seary</p>
-                                <i class="chat-box__active-time">10.20 AM</i>
-                            </div>
-                        </div>
-                        <div class="chat-box__message chat-box__messege-by-me">i am fine. what about you?</div>
-                    </div>
-                </div>
-                 <div class="chat-box__message-item">
-                    <div class="chat-box__user">
-                        <img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
-                        <div>
-                            <p class="chat-box__user-name"> Townsend Seary</p>
-                            <i class="chat-box__active-time">10.20 AM</i>
-                        </div>
-                    </div>
-                    <div class="chat-box__message">what are u doing tody ? any plance ?</div>
-                </div>
-                 <div class="chat-box__message-item">
-                    <div class="chat-box__message">what are u doing tody ?</div>
+                    <div class="chat-box__outsider-msg-text">how are you doing?</div>
                 </div>
             </div>
-        <!-- </div> -->
+            <div class="chat-box__my-message">
+                <div class="chat__box-msg-wrapper">
+                    <div class="chat-box__user">
+                        <img class="chat-item__profile-img" src="../assets/image/aarti.jpg">
+                        <div>
+                            <p class="chat-box__user-name"> Townsend Seary</p>
+                            <i class="chat-box__active-time">10.20 AM</i>
+                        </div>
+                    </div>
+                    <div class="chat-box__my-messege-text">i am fine. what about you?i am fine. what about you?i am fine. what about you?</div>
+                </div>
+            </div>
+            <div class="chat-box__outside-message">
+                <div class="chat__box-msg-wrapper">
+                    <div class="chat-box__user">
+                        <img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
+                        <div>
+                            <p class="chat-box__user-name"> Townsend Seary</p>
+                            <i class="chat-box__active-time">10.20 AM</i>
+                        </div>
+                    </div>
+                    <div class="chat-box__outsider-msg-text">what are u doing tody ? any plance ?</div>
+                </div>
+            </div>
+            <div class="chat-box__my-message">
+                <div class="chat__box-msg-wrapper">
+                    <div class="chat-box__user">
+                        <img class="chat-item__profile-img" src="../assets/image/aarti.jpg">
+                        <div>
+                            <p class="chat-box__user-name"> Townsend Seary</p>
+                            <i class="chat-box__active-time">10.20 AM</i>
+                        </div>
+                    </div>
+                    <div class="chat-box__my-messege-text">i am fine. what about you?</div>
+                </div>
+            </div>
+            <div class="chat-box__outside-message">
+                <div class="chat__box-msg-wrapper">
+                    <div class="chat-box__user">
+                        <img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
+                        <div>
+                            <p class="chat-box__user-name"> Townsend Seary</p>
+                            <i class="chat-box__active-time">10.20 AM</i>
+                        </div>
+                    </div>
+                        <div class="chat-box__outsider-msg-text">what are u doing tody ? any plance ?</div>
+                        <div class="chat-box__outsider-msg-text">what are u doing tody ?</div>
+                    </div>
+            </div>
+        </div>
+    
         <!-- textarea -->
             <div>
-                <div class="textarea">
+                <div class="chat-box__textarea">
                     <div class="chat-box__icons-parent">
                         <svg class="chat-box__icons" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="smile" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
                             <path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 464c-119.1 0-216-96.9-216-216S128.9 40 248 40s216 96.9 216 216-96.9 216-216 216zm90.2-146.2C315.8 352.6 282.9 368 248 368s-67.8-15.4-90.2-42.2c-5.7-6.8-15.8-7.7-22.5-2-6.8 5.7-7.7 15.7-2 22.5C161.7 380.4 203.6 400 248 400s86.3-19.6 114.8-53.8c5.7-6.8 4.8-16.9-2-22.5-6.8-5.6-16.9-4.7-22.6 2.1zM168 240c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32zm160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32z"></path>
                         </svg>
                     </div>
                     <div class="chat-box__textarea-parent">
-                        <input type="text" placeholder="Write a message." class="chat-box__textarea">
+                        <input type="text" placeholder="Write a message." class="chat-box__textarea-input">
                     </div>
                     <div class="chat-box__icons-parent">
                         <svg class="chat-box__icons" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="paperclip" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -122,7 +128,29 @@
         </div>
 </template>
 
-<style lang="scss">
+<script>
+import IconButton from './global/IconButton'
+export default {
+	components: {
+		IconButton
+	},
+	
+	data() {
+		return {
+			moreOptions: ['Profile', 'Delete', 'Block'],
+			showOption: false
+		}
+	},
+
+	methods: {
+		toggleOption() {
+			this.showOption = !this.showOption
+		}
+	}
+}
+</script>
+
+<style lang="scss" scoped>
     @import '../design';
 
     .chat-box{
@@ -131,11 +159,12 @@
         flex: 1 1;
         position: relative;
         height: 100vh;
+        border-right: 1px solid var(--lightGrey);
     }
     .chat-box__header{
         display: flex;
         align-items: center;
-        border-bottom: 1px solid color('light-grey');
+        border-bottom: 1px solid var(--lightGrey);
         padding: 20px 30px;
     }
     .chat-box__parent{
@@ -153,42 +182,34 @@
     }
     .chat-box__user-name{
         font-size: 18px ;
+        color: var(--color2);
     }
     .chat-box__active-time{
         font-size: 11px;
+        color: var(--color2);
     }
     .chat-box__media-options{
          display: flex;
-    }
-    .chat-box__icon-parent{
-       width: 45px;
-        height: 35px;
-        border: 1px solid;
-        align-items: center;
-        margin: 0 5px;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
     }
     .chat-box__icons{
         width: 16px;
         height: 16px;
     }
     .chat-box__call-icon{
-        color: color('green');
+        color: var(--green);
     }
     .chat-box__call-video{
-        color: color('light-orange')
+        color: var(--redOrange)
     }
     .chat-box__dopdown-btn{
         // display: none;
         position: absolute;
         top: 56px;
         right: 30px;
-        padding: 20px 30px;
+        padding: 30px 0;
         border: 0;
         z-index: 1;
-        background-color: white;
+        background-color: var(--color1);
         border-radius: 10px;
         box-shadow: 0px 0px 8px #0000001f;
     }
@@ -197,7 +218,12 @@
         padding: 0;
     }
     .chat-box__list-item{
-        padding: 5px 0;
+        padding: 10px 50px;
+        cursor: pointer;
+
+        &:hover{
+            background-color: var(--lightGrey);
+        }
     }
 
     // message
@@ -205,42 +231,53 @@
     .chat-box__message-parent{
         width: 100%;
         height: auto;
-        padding: 30px;
+        padding: 20px 30px;
         overflow: auto;
         flex: 1 1 100%;
     }
     .chat-box__message-parent::-webkit-scrollbar{
         display: none;
     }
-    .chat-box__message-right{
+    .chat__box-msg-wrapper{
+        max-width: 60%;
+    }
+    .chat-box__my-message{
+        margin: 15px 0 ;
         display: flex;
         justify-content: flex-end;
     }
-    .chat-box__message-item{
-        width: 30%;
+    .chat-box__outside-message{
+        display: flex;
         margin: 15px 0 ;
+        
     }
-    .chat-box__message{
-        background-color: color('light-grey');
+    .chat-box__outsider-msg-text{
+        background-color: var(--lightGrey);
+        color: var(--color2);
         padding: 10px 20px;
-        margin: 15px 0 0;
+        margin: 5px 0 0;
         border-radius: 5px;
         font-size: 14px;
     }
-    .chat-box__messege-by-me{
-         background-color: color('app-main');
-         color: color('sand');
+    .chat-box__my-messege-text{
+        background-color: var(--color3);
+        color: var(--color1);
+        padding: 10px 20px;
+        margin: 5px 0 0;
+        border-radius: 5px;
+        font-size: 14px;
     }
     .chat-box__user{
         display: flex;
+        margin-bottom: 15px;
     }
 
     // text input
-    .textarea{
+    .chat-box__textarea{
         display: flex;
         align-items: center;
         padding: 20px 30px;
-        border-top: 1px solid gainsboro;
+        border-top: 1px solid var(--lightGrey);
         width: 100%;
         justify-content: center;
     }
@@ -249,25 +286,28 @@
         margin: 0 5px ;
 
     }
-    .chat-box__textarea{
+    .chat-box__textarea-input{
         width: 100%;
         height: 35px;
         border-radius: 10px;
-        border: 1px solid color('light-grey');   
+        border: 1px solid var(--lightGrey);  
+        padding: 2px 20px;
+        outline: none; 
     }
     .chat-box__icons-parent{
         width: 45px;
         height: 35px;
-        border: 1px solid color('light-grey');
+        border: 1px solid var(--lightGrey);
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 5px;
         border-radius: 5px;
-        background-color: color('light-grey');
+        background-color: var(--lightGrey);
+        cursor: pointer;
     }
     .chat-box__send-icons{
-        background-color: color('app-main');
+        background-color: var(--color3);
         color: color('sand');
     }
 

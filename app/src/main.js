@@ -1,4 +1,4 @@
-// import css from './assets/cas/var.css'
+import './assets/css/var.css';
 import Vue from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
