@@ -1,8 +1,16 @@
 <template>
+    <div class="user-list">
     <div class="user-list__wrapper">
         <div>
             <div class="user-list__title">
-                <span class="user-list__title-text">Chats</span>
+                <div class="user-list__title-text-wrapper">
+                    <IconButton class="user-list__menu-icon">
+                        <svg @click="openAside"  aria-hidden="true" focusable="false" data-prefix="fal" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path fill="currentColor" d="M442 114H6a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6z"></path>
+                        </svg>
+                    </IconButton>
+                    <span class="user-list__title-text">Chats</span>
+                </div>
                 <div class="side-to-side">
                     <IconButton>
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user-friends" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-user-friends fa-w-20 fa-2x">
@@ -14,7 +22,7 @@
                             <path fill="currentColor" d="M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z" class=""></path>
                         </svg>
                     </IconButton>
-                    </div>
+                </div>
             </div>
             <div class="user-list__search-wrapper">
                 <input type="text" placeholder="Search Chats" class="user-list__search-input"/>
@@ -23,6 +31,7 @@
         <div class="user-list__chat-item-wrapper">
             <ChatItem v-for="i in 10" :key="i"/>
         </div>
+    </div>
     </div>
 </template>
 
@@ -34,6 +43,16 @@
         components:{
             ChatItem,
             IconButton
+        },
+        methods:{
+            openAside(){
+                var home = document.querySelector(".home");
+                home.style.transform="translateX(28%)";
+                var creatEl = document.createElement("div");
+                creatEl.innerHTML= `<div class="overlay__ClickArea" onclick="closeOverlay()"></div>`
+                creatEl.classList.add("overlay");
+                document.body.append(creatEl);
+            },
         }
     }
 </script>
@@ -41,12 +60,22 @@
 <style lang="scss" scoped>
     @import "../design";
 
+    .user-list{
+        width: 100%;
+        @include above( 'tablet'){
+            width: 350px;
+        }  
+    }
     .user-list__wrapper{
-        width: 350px;
         display: flex;
         flex-direction: column;
         height: 100vh;
-        border-right:1px solid var(--lightGrey);
+        border-right:1px solid var(--border-color);
+    }
+    .user-list__menu-icon{
+        @include above( 'tablet'){
+            display: none;
+        }
     }
     .user-list__title{
         display: flex;
@@ -54,19 +83,31 @@
         align-items: center;
         padding: 20px 30px;
     }
+    .user-list__title-text-wrapper{
+        display: flex;
+        align-items: center;
+    }
     .user-list__title-text{
-       font-size: 23px;
+       font-size: 20px;
        font-weight: 600; 
+       margin-left: 10px;
        color: var(--color2);
+       @include above( 'tablet'){
+            font-size: 23px;
+            margin-left: 0px;
+        }
     }
     .user-list__search-wrapper{
-        padding: 30px;
-        margin-bottom: 10px;
+        padding: 20px 30px;
+         @include above( 'tablet'){
+            margin-bottom: 10px;
+            padding: 30px;
+         }
     }
     .user-list__svg-parent{
         width: 45px;
         height: 35px;
-        border: 1px solid var(--lightGrey);
+        border: 1px solid var(--border-color);
         margin: 0 3px;
         border-radius: 5px;
         display: flex;
@@ -75,16 +116,22 @@
     }
     .user-list__search-input{
         width: 100%;
-        height: 40px;
-        font-size: 15px;
+        height: 35px;
+        font-size: 13px;
         border-radius: 5px;
         padding: 2px 10px;
         outline: none;
-        border: 1px solid var(--lightGrey);
+        border: 1px solid var(--border-color);
         text-transform: capitalize;
+         @include above( 'tablet'){
+             height: 40px;
+             font-size: 15px;
+         }
     }
     .side-to-side{
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
     }
     .user-list__chat-item-wrapper{
         width: 100%;

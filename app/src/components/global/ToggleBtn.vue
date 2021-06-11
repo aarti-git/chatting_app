@@ -48,9 +48,10 @@ export default {
         height: var(--toggle-height, 15px);
         border-radius: var(--toggle-height, 15px);
         background-color: var(--color1);
-        border: 1px solid var(--grey);
+        border: 1px solid var(--color4);
         margin-right: 10px;
         transition: background-color .1s ease;
+        cursor: pointer;
         
         .toggle__input:checked + &{
             background-color: var(--color3);
@@ -68,7 +69,7 @@ export default {
             width: calc(var(--toggle-height, 15px) - 5px);
             height: calc(var(--toggle-height, 15px) - 5px);
             border-radius: 50%;
-            background-color: var(--grey);
+            background-color: var(--color4);
             margin-left: var(--toggle-knob-diff);
             transition: margin .1s ease, background-color .1s ease;
         }

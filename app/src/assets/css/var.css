@@ -3,10 +3,11 @@
     --color1:#ffffff;
     --color2:#212529;
     --color3:#0a80ff;
-    --grey:#969696;
-    --lightGrey :#e6e6e6;
-    --green: green;
+    --color4:#969696;
+    --border-color :#e6e6e6;
+    --green: #0abb87;
     --redOrange: #ffb822;
-    --lightGrey2: #6c757d;
+    --border-color2: #6c757d;
+    --red:red;
 
 }

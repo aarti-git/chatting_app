@@ -1,10 +1,10 @@
 <template>
-     <div class="chat-item">
+     <div @click="openChatbox" class="chat-item">
 		<div class="chat-item__list-wrapper">
 			<img class="chat-item__profile-img" src="../assets/image/yogesh.jpg">
 			<div class="chat-item__user-info">
 				<div class="chat-item__user-name">
-					<span class="chat-item__name">Townsend Seary</span>
+					<span class="chat-item__name">Yogesh Jagdale</span>
 					<p class="chat-item__last-message">im fine...What up,how are you?up,how are you</p>
 				</div>
 				<div class="chat-item__message-time">
@@ -18,6 +18,19 @@
     </div>
 </template>
 
+<script>
+    export default {
+        methods:{
+            openChatbox(){
+                var chatBox = document.querySelector(".chat-box");
+                var userList = document.querySelector(".user-list");
+                chatBox.classList.remove("hide");
+                userList.classList.add("hide");
+            }
+        }
+    }
+</script>
+
 <style lang="scss" scoped>
     @import '../design';
 
@@ -25,7 +38,7 @@
         display: flex;
         align-items: center;
         padding: 12px 30px;
-        border-bottom: 1px solid var(--lightGrey);
+        border-bottom: 1px solid var(--border-color);
     }
 
 	.chat-item__option {
@@ -65,13 +78,17 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 13px;
-        color: var(--grey);
+        font-size: 12px;
+        color: var(--color4);
+        @include above( 'tablet'){
+            font-size: 13px;
+        }
     }
     .chat-item__time{
         display: block;
         font-size: 11px;
         min-width: 50px;
+        text-align: right;
         color: var(--color2);
     }
     .chat-item__option{

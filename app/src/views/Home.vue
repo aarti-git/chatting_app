@@ -23,7 +23,14 @@ export default {
     UserList,
     ChatBox,
     Profile,
-  }, 
+  },
+  methods:{
+    closeOverlay(){
+      document.body.style.backgroundColor="blue";
+      var Home = document.querySelector(".home")
+      Home.style.backgroundColor="red";
+    }
+  }
 };
 
 </script>
@@ -37,13 +44,31 @@ export default {
   }
   .home{
     display: flex;
+    transform: translateX(0%);
+    transition: transform .1s ease ;
   }
-  
-  // .home {
-  //   background-color: color('dark-orange');
+  .overlay{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 28%;
+    transition-delay: .2s;
+  }
+  .overlay__ClickArea{
+    height: 100%;
+  }
 
-  //   @include above('tablet') {
-  //     background-color: color('light-red');
-  //   }
+  .hide{
+    display: none;
+     @include above('tablet'){
+       display: block;
+     }
+  }
+
+  // .desktop-hide{
+  //   display: none;
   // }
+  
 </style>

@@ -3,11 +3,13 @@
         <div class="profile__wrapper">
             <div class="profile__title-wrapper">
                 <span class="profile__title">Profile</span>
-                <IconButton>
-                    <svg class="profile__icon" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                        <path fill="currentColor" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                    </svg>
-                </IconButton>
+                <div @click="removeProfile">
+                    <IconButton>
+                        <svg class="profile__icon" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path fill="currentColor" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
+                        </svg>
+                    </IconButton>
+                </div>
             </div>
             <div class="profile__scrollbar-wrapper">
                 <div class="profile__details-wrapper">
@@ -110,6 +112,11 @@ export default {
             settingBtns(state, type){
                 console.log(state, type)
             },
+            removeProfile(){
+                let profile = document.querySelector(".profile");
+                profile.style.display="none";
+                // profile.classList.add("hide")
+            }
         }
 }
 </script>
@@ -118,7 +125,8 @@ export default {
     @import "../design";
 
     .profile{
-        width: 350px ;
+        display: none;
+        max-width: 350px;
     }
     .profile__wrapper{
         display: flex;
@@ -169,7 +177,7 @@ export default {
     }
     .profile__details-last-seen{
         font-size: 13px;
-        color: var(--grey);
+        color: var(--color4);
     }
     .prfile__media-icon-wrapper{
         display: flex;
@@ -181,7 +189,7 @@ export default {
         justify-content: center;
         align-items: center;
         margin: 0 5px;
-        background: var(--lightGrey);
+        background: var(--border-color);
         border-radius: 50% ;
     }
     .profile__media-icon{
@@ -190,6 +198,7 @@ export default {
     }
     .profile__tabs{
         padding: 30px;
+        width: 350px;
     }
     .active-tab{
         color: var(--color3) !important;
@@ -207,7 +216,7 @@ export default {
         cursor: pointer;
 
         &:hover{
-            color: var(--lightGrey2);
+            color: var(--border-color2);
         }
     }
     .profile__tab-names{
@@ -219,7 +228,7 @@ export default {
     }
     .profile__about-tab-pare{
         font-size: 14px;
-        color: var(--lightGrey2);
+        color: var(--border-color2);
         line-height: 23px;
         margin-bottom: 20px;
     }
@@ -234,7 +243,7 @@ export default {
     }
     .profile__about-tab-info{
         font-size: 14px;
-        color:var(--lightGrey2);
+        color:var(--border-color2);
     }
     
 </style>

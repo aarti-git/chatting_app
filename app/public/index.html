@@ -13,5 +13,14 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <script>
+      function closeOverlay(){
+        var Home = document.querySelector(".home");
+        var overlay = document.querySelector(".overlay");
+        Home.style.transform="translateX(0%)";
+        overlay.remove();
+      }
+    </script>
   </body>
 </html>

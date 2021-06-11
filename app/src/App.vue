@@ -35,6 +35,7 @@ main{
   margin: 0 auto;
   display: block;
   background-color: var(--color1);
+  overflow: hidden;
 }
 #nav {
   padding: 30px;
