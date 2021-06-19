@@ -39,6 +39,12 @@
         align-items: center;
         padding: 12px 30px;
         border-bottom: 1px solid var(--border-color);
+        @include above('tablet'){
+            padding: 12px 20px;
+        }
+        @include above('desktop'){
+            padding: 12px 30px;
+        }
     }
 
 	.chat-item__option {
@@ -62,6 +68,15 @@
         border:0;
         margin-right: 10px;
         vertical-align: middle;
+
+        @include above('tablet'){
+            width: 35px;
+            height: 35px;
+        }
+         @include above('desktop'){
+            width: 40px;
+            height: 40px;
+        }
 	}
     .chat-item__user-name{
         padding: 0 10px;

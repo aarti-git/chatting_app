@@ -5,13 +5,13 @@
     <Main />
     <UserList />
     <ChatBox/>
-    <Profile />
+    <Profile v-if="showProfile"/>
   </div>
 </template>
 
 <script>
-
 // @ is an alias to /src
+import { mapState } from 'vuex'
 import Main from '@/components/Main.vue';
 import UserList from '@/components/UserList.vue';
 import ChatBox from '@/components/ChatBox.vue';
@@ -24,12 +24,12 @@ export default {
     ChatBox,
     Profile,
   },
+
+  computed: {
+    ...mapState(['showProfile'])
+  },
+
   methods:{
-    closeOverlay(){
-      document.body.style.backgroundColor="blue";
-      var Home = document.querySelector(".home")
-      Home.style.backgroundColor="red";
-    }
   }
 };
 
@@ -44,8 +44,8 @@ export default {
   }
   .home{
     display: flex;
-    transform: translateX(0%);
-    transition: transform .1s ease ;
+    transform: translateX(0px);
+    transition: transform .2s ease ;
   }
   .overlay{
     width: 100%;
@@ -53,7 +53,7 @@ export default {
     height: 100%;
     position: fixed;
     top: 0;
-    left: 28%;
+    left: 100px;
     transition-delay: .2s;
   }
   .overlay__ClickArea{
@@ -66,9 +66,12 @@ export default {
        display: block;
      }
   }
-
-  // .desktop-hide{
-  //   display: none;
-  // }
-  
+  .popup__overlay{
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0,0,0,0.6);
+    }
 </style>

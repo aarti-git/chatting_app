@@ -47,40 +47,42 @@
 			</div>
 			<!-- text area -->
 			<div class="chat-box__message-parent">
-				<div 
-					v-for="(item, index) in chats"
-					:key="index"
-					:class="['chat-box__messages',{
-						'chat-box__my-message': item.type === 0,
-					}]"
-				>
-					<div class="chat__box-msg-wrapper">
-						<!-- <div
-						:class="['chat-box__user',{
-						'chat-box__user-containt': item.type === 0,
+				<div class="chat-box__messages-wrapper">
+					<div 
+						v-for="(item, index) in chats"
+						:key="index"
+						:class="['chat-box__messages',{
+							'chat-box__my-message': item.type === 0,
 						}]"
-						>
-							<img class="chat-item__profile-img" :src="item.img">
-							<div>
-								<p class="chat-box__user-name">{{ item.name }}</p>
-								<i class="chat-box__active-time">{{ item.time }}</i>
-							</div>
-						</div> -->
-						<div
-							v-for="(message, index) in item.messages"
-								:key="index"
-							:class="['chat-box__item-wrapper',{
-							'chat-box__item-wrapper--me': item.type === 0,
+					>
+						<div class="chat__box-msg-wrapper">
+							<!-- <div
+							:class="['chat-box__user',{
+							'chat-box__user-containt': item.type === 0,
 							}]"
-						>
-							<div 
-								:class="['chat-box__item',{
-									'chat-box__item--other': item.type === 1,
-									'chat-box__item--me': item.type === 0,
+							>
+								<img class="chat-item__profile-img" :src="item.img">
+								<div>
+									<p class="chat-box__user-name">{{ item.name }}</p>
+									<i class="chat-box__active-time">{{ item.time }}</i>
+								</div>
+							</div> -->
+							<div
+								v-for="(message, index) in item.messages"
+									:key="index"
+								:class="['chat-box__item-wrapper',{
+								'chat-box__item-wrapper--me': item.type === 0,
 								}]"
-								v-text="message.value"
-							></div>
-							<span v-text="message.time" class="chat-box__item-time"></span>
+							>
+								<div 
+									:class="['chat-box__item',{
+										'chat-box__item--other': item.type === 1,
+										'chat-box__item--me': item.type === 0,
+									}]"
+									v-text="message.value"
+								></div>
+								<span v-text="message.time" class="chat-box__item-time"></span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -116,6 +118,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import IconButton from './global/IconButton'
 export default {
 	components: {
@@ -177,8 +180,6 @@ export default {
 					"time": "10.26 AM"
 				}]
 			},{
-				"img": "/img/aarti.jpg",
-				"name": "Aarti Jagdale",
 				"type": 0,
 				"time": "10:20 AM",
 				"messages": [{
@@ -190,11 +191,36 @@ export default {
 					"type": 0,
 					"time": "10.26 AM"
 				}]
-			}]
+			},{
+				"type": 1,
+				"messages": [{
+					"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra dui",
+					"type": 0,
+					"time": "10.28 AM"
+				},
+				{
+					"value": "Lorem ipsum dolor sit amet.",
+					"type": 0,
+					"time": "10.29 AM"
+				}]
+			},{
+				"type": 0,
+				"time": "10:30 AM",
+				"messages": [{
+					"value": "nothing",
+					"type": 0,
+					"time": "10.30AM"
+				},{
+					"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+					"type": 0,
+					"time": "10.31 AM"
+				}]
+			},]
 		}
 	},
 
 	methods: {
+		...mapMutations(['toggleProfile']),
 		toggleOption() {
 			this.showOption = !this.showOption
 		},
@@ -206,19 +232,17 @@ export default {
 		},
 		openProfile(number){
 			if(number == 1){
-			   let profile = document.querySelector(".profile") ;
-			   let dopdownBtn = document.querySelector(".chat-box__dopdown-btn") 
-			   profile.style.display="block";
-			   dopdownBtn.style.display="none";
+			this.toggleProfile(true);
+			this.showOption = false;
 			}
 			console.log(number)
 		},
 		sendMsg(){
 			if(this.message){
 				let x =	this.chats[this.chats.length-1].messages;
+				let chatBox = document.querySelector(".chat-box__message-parent") ;
 				x.push({value: this.message});
 				this.message = '';
-				let chatBox = document.querySelector(".chat-box__message-parent") ;
 				chatBox.scrollTop = chatBox.scrollHeight;
 			}
 		}
@@ -243,13 +267,16 @@ export default {
 		display: block;
 		border-bottom: 1px solid var(--border-color);
 		padding: 15px 30px;
-
 		@include above( 'tablet'){
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 20px 30px;
+			padding: 20px;
 		}
+		@include above('desktop'){
+			padding: 15px 30px;
+		}
+
 	}
 	.chat-box__parent{
 		display: flex;
@@ -349,10 +376,26 @@ export default {
 		padding: 20px 30px 0;
 		overflow: auto;
 		flex: 1 1 100%;
+		display: flex;
+		flex-direction: column;
+		@include above('tablet'){
+		 padding: 20px 20px 0;
+		}
+		@include above('desktop'){
+		 padding: 20px 30px 0;
+		}
 	}
 	.chat-box__message-parent::-webkit-scrollbar{
 		display: none;
 	}
+	 .chat-box__messages-wrapper{
+		 margin-top: auto !important;
+	// 	display: flex;
+	// 	justify-content:flex-end;
+	// 	flex-direction: column;
+	// 	flex-grow: 1;
+	// 	height: 100%;
+	 }
 	.chat__box-msg-wrapper{
 		max-width: 60%;
 	}
@@ -377,6 +420,7 @@ export default {
 		padding: 10px 20px;
 		border-radius: 5px;
 		font-size: 12px;
+		line-height: 20px;
 		@include above( 'tablet'){
 			font-size: 14px;
 		}

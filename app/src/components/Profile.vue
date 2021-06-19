@@ -22,7 +22,7 @@
                         <li class="profile__tabs-name-item profile__tabs-about-item active-tab" @click="openAboutTab">About</li>
                         <li class="profile__tabs-name-item profile__tabs-media-item" @click="openMediaTab">media</li>
                     </ul>
-                    <div class="profile__about-tab">
+                    <div  v-if="aboutTab" class="profile__about-tab">
                             <p class="profile__about-tab-pare">Lorem ipsum is a pseudo-Latin text used in web design, 
                                 typography, layout, and printing in place of English to
                                 emphasise design elements over content. It's also called 
@@ -65,7 +65,7 @@
                             </div>
                         <!-- </div> -->
                     </div>
-                    <div class="profile__media-tab">
+                    <div v-if="mediaTab" class="profile__media-tab">
                         <div>
                             <p>Resent File</p>
                             <span>Upload</span>
@@ -81,31 +81,33 @@
 
 import IconButton from './global/IconButton';
 import ToggleBtn from './global/ToggleBtn';
+import { mapMutations} from 'vuex'
 export default {
     components:{
         IconButton,
         ToggleBtn,
     },
     data(){
-        return {click:true}
+        return {
+            click:true, 
+            aboutTab:true,
+            mediaTab:false
+        }
   },
     methods:{
+            ...mapMutations(["toggleProfile"]),
             openAboutTab(e){
                 console.log(e)
-                let profileAboutTab = document.querySelector(".profile__about-tab");
-                let profileMediaTab = document.querySelector(".profile__media-tab");
                 let mediaItem = document.querySelector(".profile__tabs-media-item")
-                profileAboutTab.style.display="block";
-                profileMediaTab.style.display="none";
+                this.aboutTab = true;
+                this.mediaTab = false;
                 e.target.classList.add("active-tab");
                 mediaItem.classList.remove("active-tab");
             },
             openMediaTab(e){
-                let profileAboutTab = document.querySelector(".profile__about-tab");
-                let profileMediaTab = document.querySelector(".profile__media-tab");
                 let aboutItem= document.querySelector(".profile__tabs-about-item");
-                profileAboutTab.style.display="none";
-                profileMediaTab.style.display="block";
+                this.aboutTab = false;
+                this.mediaTab = true;
                 e.target.classList.add("active-tab");
                 aboutItem.classList.remove("active-tab");
             },
@@ -113,9 +115,7 @@ export default {
                 console.log(state, type)
             },
             removeProfile(){
-                let profile = document.querySelector(".profile");
-                profile.style.display="none";
-                // profile.classList.add("hide")
+                this.toggleProfile(false)
             }
         }
 }
@@ -125,7 +125,6 @@ export default {
     @import "../design";
 
     .profile{
-        display: none;
         max-width: 350px;
     }
     .profile__wrapper{
@@ -198,7 +197,13 @@ export default {
     }
     .profile__tabs{
         padding: 30px;
-        width: 350px;
+        width: 100%;
+        @include above('tablet'){
+            width: 300px;
+        }
+        @include above('desktop'){
+            width: 350px;
+        }
     }
     .active-tab{
         color: var(--color3) !important;
@@ -222,9 +227,6 @@ export default {
     .profile__tab-names{
         padding: 5px 10px;
         cursor: pointer;
-    }
-    .profile__media-tab{
-        display: none;
     }
     .profile__about-tab-pare{
         font-size: 14px;

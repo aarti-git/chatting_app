@@ -35,8 +35,25 @@
                             <path fill="currentColor" d="M448.964 365.617C348.188 384.809 255.14 307.765 255.14 205.419c0-58.893 31.561-112.832 82.574-141.862 25.83-14.7 19.333-53.859-10.015-59.28A258.114 258.114 0 0 0 280.947 0c-141.334 0-256 114.546-256 256 0 141.334 114.547 256 256 256 78.931 0 151.079-35.924 198.85-94.783 18.846-23.22-1.706-57.149-30.833-51.6zM280.947 480c-123.712 0-224-100.288-224-224s100.288-224 224-224c13.984 0 27.665 1.294 40.94 3.745-58.972 33.56-98.747 96.969-98.747 169.674 0 122.606 111.613 214.523 231.81 191.632C413.881 447.653 351.196 480 280.947 480z"></path>
                         </svg>
                     </div>
-                    <img class="main__profile-img" src="../assets/image/aarti.jpg">
-                </div>    
+                    <img class="main__profile-img" src="../assets/image/aarti.jpg" @click="toggleSetting">
+                    <div v-if="showSetting" class="main__profile-Setting-wrapper">
+                        <div class="main__setting-list">
+                            <div 
+                                v-for="option in settingOptions"
+								:key="option.title" @click="openSettingsOverlay(option.click)"
+                            >
+                                <router-link :to="option.link" class="main__setting-item-links">
+                                    <p class="main__setting-item">
+                                        {{option.title}}
+                                    </p>
+                                </router-link> 
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div v-if="openSetting" class="user-list__addgroup-overlay">
+                    <Settings @close="openSetting = false"/>
+                </div>   
             </div>
         </div>
     </aside>
@@ -46,8 +63,51 @@
 <!-- script -->
 
 <script>
+import Settings from './Setting.vue';
 export default {
-   
+    name: "Main",
+    components:{
+        Settings,
+    },
+    data(){
+       return{
+            openSetting:false,
+            settingOptions:[
+               {
+                   title:"Edit profile",
+                   click:1,
+                    link:"/"
+               },
+               {
+                   title:"profile",
+                   click:2,
+                    link:"/"
+               },
+               {
+                   title:"Settings",
+                   click:3,
+                    link:"/"
+               },
+               {
+                   title:"Log out",
+                   click:4,
+                   link:"/login"
+               },
+           ],
+           showSetting:false,
+       }
+   },
+   methods: {
+		toggleSetting() {
+			this.showSetting = !this.showSetting
+		},
+        openSettingsOverlay(no){
+            if(no == 3){
+                this.openSetting = true;
+                this.showSetting = false;
+            }
+        }
+   }
 }
 
 </script>
@@ -60,10 +120,14 @@ export default {
         z-index: 1;
         position: fixed;
         top: 0;
-        left: -28%;
+        left: -100px;
         z-index: 1;
-        @include above('tablet'){
-            position:unset
+        // @include above('tablet'){
+        //     left: -13%;
+        // }
+        @include above('tablet-large'){
+            position:unset;
+            left: 0;
         }
     }
     .main__wrapper{
@@ -113,6 +177,47 @@ export default {
         border-radius: 50%;
         border: 0;
         vertical-align: middle;
+        position: relative;
+    }
+    .main__profile-Setting-wrapper{
+        position: absolute;
+        bottom: 65px;
+        left: 20px;
+        padding: 20px 0;
+        background-color: var(--color1);
+        color: var(--color2);
+        box-shadow: 0 0 4px var(--color4);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .main__setting-list{
+        list-style: none;
+        padding:0;
+    }
+    .main__setting-item{
+         padding: 6px 30px;
+        font-size: 15px;
+         &:hover{
+            background-color: var(--color3);
+            color: var(--color1);
+         }
+    }
+    .main__setting-item-links{
+        text-decoration: none;
+        color: var(--color2);
+    }
+    .user-list__addgroup-overlay{
+        position: absolute;
+        top: 0;
+        right: 0; 
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
     }
 </style>
 

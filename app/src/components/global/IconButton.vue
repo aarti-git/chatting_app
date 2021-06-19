@@ -26,6 +26,10 @@ export default {
         cursor: pointer;
 
         @include above('tablet'){
+            width: 40px;
+            height: 32px;
+        }
+         @include above('desktop'){
             width: 45px;
             height: 35px;
         }
@@ -34,7 +38,6 @@ export default {
         width: 14px;
         height: 14px;
         color: var(--color2);
-
         @include above( 'tablet'){
             width: 16px;
             height: 16px;
