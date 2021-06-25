@@ -7,25 +7,45 @@
 					<span class="chat-item__name">Yogesh Jagdale</span>
 					<p class="chat-item__last-message">im fine...What up,how are you?up,how are you</p>
 				</div>
-				<div class="chat-item__message-time">
+				<div class="chat-item__message-time" @click="openOptions">
 					<span class="chat-item__time">03:40 PM</span>
                     <svg  class="chat-item__svg-icons chat-item__option" aria-hidden="true" focusable="false" data-prefix="far" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="currentColor" d="M304 256c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48 48 21.5 48 48zm120-48c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48zm-336 0c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z"></path>
                     </svg>
 				</div>
+                <div v-if="ProfileOptions" class="chat-item__profile-options">
+                    <ul class="chat-item__profile-option-list">
+                        <li class="chat-item__list-item" @click="openProfile">Profile</li>
+                        <li class="chat-item__list-item" >Block</li>
+                    </ul>
+                </div>
 			</div>
 		</div>
     </div>
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
     export default {
+        data(){
+            return{
+                ProfileOptions:false,
+            }
+        },
         methods:{
+            ...mapMutations(['toggleProfile']),
             openChatbox(){
                 var chatBox = document.querySelector(".chat-box");
                 var userList = document.querySelector(".user-list");
                 chatBox.classList.remove("hide");
                 userList.classList.add("hide");
+            },
+            openOptions(){
+                this.ProfileOptions = !this.ProfileOptions
+            },
+            openProfile(){
+                this.toggleProfile(true);
+                this.ProfileOptions = false;
             }
         }
     }
@@ -60,6 +80,7 @@
         justify-content:space-between;
         align-items: baseline;
         min-width: 0;
+        position: relative;
     }
 	.chat-item__profile-img{
 		width: 40px;
@@ -115,4 +136,27 @@
         cursor: pointer;
 	}
 
+    .chat-item__profile-options {
+        position: absolute;
+        top: 45px;
+        right: -15px;
+        padding: 20px 0;
+        background-color: var(--color1);
+        color: var(--color2);
+        box-shadow: 0 0 4px var(--color4);
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .chat-item__profile-option-list{
+        list-style: none;
+        padding: 0;
+    }
+    .chat-item__list-item{
+        padding: 5px 15px;
+
+        &:hover{
+            background-color: var(--border-color);
+        }
+    }
 </style>

@@ -390,11 +390,6 @@ export default {
 	}
 	 .chat-box__messages-wrapper{
 		 margin-top: auto !important;
-	// 	display: flex;
-	// 	justify-content:flex-end;
-	// 	flex-direction: column;
-	// 	flex-grow: 1;
-	// 	height: 100%;
 	 }
 	.chat__box-msg-wrapper{
 		max-width: 60%;
@@ -512,10 +507,17 @@ export default {
 			width: 45px;
 			height: 35px;
 		 }
+
+		&:hover{
+			background-color: var(--border-color3);
+		}
 	}
 	.chat-box__send-icons{
 		background-color: var(--color3);
 		color: var(--color1) !important;
+		&:hover{
+			background-color: var(--color5);
+		}
 	}
 
 

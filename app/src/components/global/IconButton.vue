@@ -24,6 +24,7 @@ export default {
         display: flex;
         justify-content: center;
         cursor: pointer;
+        background-color: var(--color1);
 
         @include above('tablet'){
             width: 40px;
@@ -32,6 +33,10 @@ export default {
          @include above('desktop'){
             width: 45px;
             height: 35px;
+        }
+
+        &:hover{
+            background-color: var(--border-color);
         }
     }
     .icon-button__icon{
