@@ -114,6 +114,7 @@ export default {
 			this.showSetting = !this.showSetting
 		},
         openSettingsOverlay(no){
+            console.log(no)
             if(no == 1){
                 this.openEditProfile = true;
             }else if(no == 2){
@@ -121,13 +122,14 @@ export default {
             }else if(no == 3){
                 this.openSetting = true;
             }
-
             if(no !== 4){
                 this.showSetting = false;
                 var Home = document.querySelector(".home");
                 var overlay = document.querySelector(".overlay");
                 Home.style.transform="translateX(0px)";
-                overlay.remove();
+                if(overlay){
+                    overlay.remove();
+                }
             }
             
         },
@@ -149,9 +151,6 @@ export default {
         top: 0;
         left: -100px;
         z-index: 1;
-        // @include above('tablet'){
-        //     left: -13%;
-        // }
         @include above('tablet-large'){
             position:unset;
             left: 0;

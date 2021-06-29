@@ -116,6 +116,8 @@ export default {
             },
             removeProfile(){
                 this.toggleProfile(false)
+                let chatBox = document.querySelector(".chat-box");
+				chatBox.classList.remove("hide");
             }
         }
 }
@@ -125,7 +127,10 @@ export default {
     @import "../design";
 
     .profile{
-        max-width: 350px;
+        max-width: 100%;
+        @include above('tablet'){
+            max-width: 350px;
+        }
     }
     .profile__wrapper{
         display: flex;

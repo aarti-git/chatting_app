@@ -1,5 +1,5 @@
 <template>
-	<div class="chat-box hide">
+	<div class="chat-box hide" ref='chatbox'>
 		<div class="chat-box__wrapper">
 			<div class='chat-box__header'>
 				<div class="chat-box__parent">
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<!-- text area -->
-			<div class="chat-box__message-parent">
+			<div ref='chatboxEl' class="chat-box__message-parent">
 				<div class="chat-box__messages-wrapper">
 					<div 
 						v-for="(item, index) in chats"
@@ -143,6 +143,7 @@ export default {
 			],
 			message: '',
 			showOption: false,
+			// chatboxEl:'#chatboxEl',
 			chats:[{
 				"type": 1,
 				"messages": [{
@@ -225,25 +226,33 @@ export default {
 			this.showOption = !this.showOption
 		},
 		removeChatbox(){
-			let chatBox = document.querySelector(".chat-box");
-			let userList =document.querySelector(".user-list");
+			let chatBox = this.$refs.chatbox;
+			let userList = document.querySelector(".user-list");
+			// let userList = this.$refs;
+			console.log("userList",userList)
 			chatBox.classList.add("hide");
 			userList.classList.remove("hide");
 		},
 		openProfile(number){
 			if(number == 1){
-			this.toggleProfile(true);
-			this.showOption = false;
+				this.toggleProfile(true);
+				this.showOption = false;
+				let chatBox = this.$refs.chatbox;
+				chatBox.classList.add("hide");
 			}
 			console.log(number)
 		},
 		sendMsg(){
 			if(this.message){
-				let x =	this.chats[this.chats.length-1].messages;
-				let chatBox = document.querySelector(".chat-box__message-parent") ;
-				x.push({value: this.message});
+				let msgText =	this.chats[this.chats.length-1].messages;
+				let chatBox = this.$refs.chatboxEl;
+				console.log("chatBox",chatBox);
+				msgText.push({value: this.message});
 				this.message = '';
-				chatBox.scrollTop = chatBox.scrollHeight;
+
+				this.$nextTick(() => {
+					chatBox.scrollTop = chatBox.scrollHeight
+				})
 			}
 		}
 	}
@@ -346,24 +355,34 @@ export default {
 	}
 	.chat-box__dopdown-btn{
 		position: absolute;
-		top: 56px;
-		right: 30px;
-		padding: 30px 0;
+		top: 100px;
+		right: 150px;
+		padding: 20px 0;
 		border: 0;
 		z-index: 1;
 		background-color: var(--color1);
 		border-radius: 10px;
 		box-shadow: 0px 0px 8px #0000001f;
+		@include above( 'tablet'){
+			top: 56px;
+			right: 30px;
+			padding: 30px 0;
+		}
+
 	}
 	.chat-box__dopdown-list{
 		list-style: none;
 		padding: 0;
 	}
-	.chat-box__list-item{
-		padding: 10px 50px;
-		cursor: pointer;
 
+	.chat-box__list-item{
+		padding: 10px 30px;
+		cursor: pointer;
+		@include above( 'tablet'){
+			padding: 10px 50px;
+		}
 		&:hover{
+			padding: 10px 30px;
 			background-color: var(--border-color);
 		}
 	}
@@ -379,10 +398,10 @@ export default {
 		display: flex;
 		flex-direction: column;
 		@include above('tablet'){
-		 padding: 20px 20px 0;
+		 padding: 0 20px;
 		}
 		@include above('desktop'){
-		 padding: 20px 30px 0;
+		 padding: 0 30px;
 		}
 	}
 	.chat-box__message-parent::-webkit-scrollbar{
